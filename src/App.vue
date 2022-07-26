@@ -49,7 +49,7 @@
             <td>{{ person.emailAddress }}</td>
             <td>{{ person.phoneNumber }}</td>
             <td>
-              <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
+              <button @click="update(person)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
               <button @click="removing(person)" class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
@@ -91,16 +91,33 @@ export default {
       })
     },
     
-    save() { 
+    save(){
+      if(!this.personData.id){
+        ScheduleService.save(this.personData).then(() => {
+          this.personData = {}
+          alert('Cadastrado com sucesso!')
+          this.listAll()
+          this.errors = {}
+        }).catch(e => {
+          this.errors = e.response.data.errors
+        })
+      }else{
+        ScheduleService.update(this.personData).then(res => {
+          this.personData = {}
+          this.errors = {}
+          alert('Atualizado com sucesso!')
+          this.listAll()
+          console.log(res)
+        }).catch(e => {
+          this.errors = e.response.data.errors
+        })
+      }
+      
+    },
 
-      ScheduleService.save(this.personData).then(res => {
-        this.personData= {}
-        this.listAll()
-        console.log(res)
-      }).catch( e => {
-        this.errors = e.response.data.errors
-      })
-
+    update(data) {
+      console.log(data)
+      this.personData = data;
     },
 
     removing(person){
