@@ -18,11 +18,11 @@
       <form @submit.prevent="save">
 
           <label>Nome</label>
-          <input type="text" placeholder="Nome" v-model="personData.name">
+          <input type="text" placeholder="Skywalker" v-model="personData.name">
           <label>Email</label>
-          <input type="text" placeholder="Email" v-model="personData.emailAddress">
+          <input type="text" placeholder="padwan@gmail.com" v-model="personData.emailAddress">
           <label>Telefone</label>
-          <input type="text" placeholder="Telefone" v-model="personData.phoneNumber">
+          <input type="text" placeholder="(81) 98866-3355" v-maska="'(##) #####-####'" v-model="personData.phoneNumber">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -66,8 +66,10 @@
 <script>
 
 import ScheduleService from './services/schedule';
+import { maska } from 'maska';
 
 export default {
+  directives: { maska },
   data(){
     return {
       personData: {
