@@ -9,14 +9,14 @@
 
     <div class="container">
 
-      <form>
+      <form @submit.prevent="save">
 
           <label>Nome</label>
-          <input type="text" placeholder="Nome">
+          <input type="text" placeholder="Nome" v-model="person.name">
           <label>Email</label>
-          <input type="text" placeholder="Email">
+          <input type="text" placeholder="Email" v-model="person.emailAddress">
           <label>Telefone</label>
-          <input type="text" placeholder="Telefone">
+          <input type="text" placeholder="Telefone" v-model="person.phoneNumber">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -64,6 +64,11 @@ import ScheduleService from './services/schedule';
 export default {
   data(){
     return {
+      person: {
+        name: '',
+        emailAddress: '',
+        phoneNumber: ''
+      },
       listPerson: []
     }
   },
@@ -73,6 +78,15 @@ export default {
       console.log(res)
       this.listPerson = res.data;
     })
+  },
+
+  methods: {
+    save() {
+      ScheduleService.save(this.person).then(res => {
+        alert('Salvo com sucesso')
+        console.log(res)
+      })
+    }
   }
 }
 
