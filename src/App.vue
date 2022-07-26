@@ -37,11 +37,11 @@
 
         <tbody>
 
-          <tr>
+          <tr v-for="person of listPerson" :key="person.id">
 
-            <td>Nome</td>
-            <td>Email</td>
-            <td>Telefone</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.emailAddress }}</td>
+            <td>{{ person.phoneNumber }}</td>
             <td>
               <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
               <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
@@ -58,6 +58,23 @@
 </template>
 
 <script>
+
+import ScheduleService from './services/schedule';
+
+export default {
+  data(){
+    return {
+      listPerson: []
+    }
+  },
+
+  mounted(){
+    ScheduleService.listAll().then(res => {
+      console.log(res)
+      this.listPerson = res.data;
+    })
+  }
+}
 
 </script>
 
