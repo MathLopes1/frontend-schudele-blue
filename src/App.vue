@@ -9,6 +9,12 @@
 
     <div class="container">
 
+      <ul>
+        <li v-for="(erro, index) of errors" :key="index">
+            campo <b>{{erro.field}}</b> - {{erro.defaultMessage}}
+        </li>
+      </ul>
+
       <form @submit.prevent="save">
 
           <label>Nome</label>
@@ -44,7 +50,7 @@
             <td>{{ person.phoneNumber }}</td>
             <td>
               <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-              <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+              <button @click="removing(person)" class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
           </tr>
@@ -69,7 +75,8 @@ export default {
         emailAddress: '',
         phoneNumber: ''
       },
-      listPerson: []
+      listPerson: [],
+      errors: []
     }
   },
 
@@ -84,12 +91,28 @@ export default {
       })
     },
     
-    save() {
+    save() { 
+
       ScheduleService.save(this.personData).then(res => {
         this.personData= {}
         this.listAll()
         console.log(res)
+      }).catch( e => {
+        this.errors = e.response.data.errors
       })
+
+    },
+
+    removing(person){
+      if(confirm('Deseja excluir o usuário?')){
+        ScheduleService.delete(person).then(resposta => {
+          this.listAll()
+          this.errors = {}
+          console.log(resposta)
+        }).catch(e => {
+          this.errors = e.response.data.errors
+        })
+      }
     }
   }
 }

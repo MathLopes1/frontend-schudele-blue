@@ -7,6 +7,11 @@ export default {
 
     save: (person) => {
         return http.post('schedule', person)
+    },
+    
+    delete: (dataForDelete) => {
+        console.log(dataForDelete)
+        return http.delete(`person/${dataForDelete.id}`)
     }
 }
 
