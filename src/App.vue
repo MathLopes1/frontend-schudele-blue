@@ -2,7 +2,7 @@
   <div id="app">
 
     <nav>
-      <div class="nav-wrapper blue darken-1">
+      <div class="nav-wrapper green darken-2">
         <a href="#" class="brand-logo center">Agenda Blue</a>
       </div>
     </nav>
@@ -24,7 +24,7 @@
           <label>Telefone</label>
           <input type="text" placeholder="(81) 98866-3355" v-maska="'(##) #####-####'" v-model="personData.phoneNumber">
 
-          <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+          <button class="waves-effect waves-light btn-small green">Salvar<i class="material-icons left">save</i></button>
 
       </form>
 
@@ -49,7 +49,7 @@
             <td>{{ person.emailAddress }}</td>
             <td>{{ person.phoneNumber }}</td>
             <td>
-              <button @click="update(person)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
+              <button @click="update(person)" class="waves-effect btn-small green darken-1"><i class="material-icons">create</i></button>
               <button @click="removing(person)" class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
